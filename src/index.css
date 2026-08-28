@@ -1,0 +1,244 @@
+:root {
+  --text: #2a2730;
+  --text-muted: #6b6375;
+  --bg: #fdfcfb;
+  --surface: #ffffff;
+  --border: #e5e4e7;
+  --accent: #8b3bff;
+  --accent-contrast: #ffffff;
+  --danger: #c0392b;
+
+  font: 16px/1.5 system-ui, 'Segoe UI', Roboto, sans-serif;
+  color-scheme: light dark;
+  color: var(--text);
+  background: var(--bg);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #e5e4e7;
+    --text-muted: #9ca3af;
+    --bg: #16171d;
+    --surface: #1f2028;
+    --border: #2e303a;
+    --accent: #c084fc;
+    --accent-contrast: #16171d;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 6px 8px;
+}
+
+.centered-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100svh;
+  color: var(--text-muted);
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: var(--accent);
+  padding: 0;
+  text-decoration: underline;
+}
+
+.form-error {
+  color: var(--danger);
+  font-size: 0.9em;
+}
+
+.form-message {
+  color: var(--text-muted);
+  font-size: 0.9em;
+}
+
+/* auth screen */
+.auth-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100svh;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 320px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.auth-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.9em;
+  color: var(--text-muted);
+}
+
+.auth-form button[type='submit'] {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border: none;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+.auth-switch {
+  font-size: 0.9em;
+  color: var(--text-muted);
+}
+
+/* header */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.app-title {
+  font-weight: 600;
+}
+
+.app-header-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9em;
+  color: var(--text-muted);
+}
+
+/* board */
+.board {
+  padding: 24px;
+}
+
+.timeline-name {
+  font-size: 1.4em;
+  margin: 0 0 16px;
+}
+
+.scene-list-wrapper {
+  overflow-x: auto;
+  padding-bottom: 12px;
+}
+
+.scene-list {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.scene-card {
+  position: relative;
+  width: 220px;
+  flex: 0 0 auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.scene-card h3 {
+  margin: 0;
+  font-size: 1em;
+}
+
+.scene-card p {
+  margin: 0;
+  font-size: 0.85em;
+  color: var(--text-muted);
+  overflow-wrap: anywhere;
+}
+
+.scene-card-drag-handle {
+  align-self: flex-end;
+  cursor: grab;
+  color: var(--text-muted);
+  touch-action: none;
+}
+
+.scene-card-status {
+  align-self: flex-start;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+
+.scene-card-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+  font-size: 0.85em;
+}
+
+.scene-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.scene-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85em;
+  color: var(--text-muted);
+}
+
+.scene-form-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.scene-form-actions button[type='submit'] {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+}
+
+.add-scene-button {
+  width: 220px;
+  flex: 0 0 auto;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  background: none;
+  color: var(--text-muted);
+  padding: 12px;
+  align-self: stretch;
+}
