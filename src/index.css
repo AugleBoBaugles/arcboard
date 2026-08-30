@@ -1,12 +1,18 @@
 :root {
-  --text: #2a2730;
-  --text-muted: #6b6375;
-  --bg: #fdfcfb;
+  /* Semantic color tokens, sourced from the sage/tea-green palette. Every rule
+     below reads colors through these tokens rather than raw hex, so a future
+     "pick your own palette" settings feature only needs to override this
+     block (or inject an equivalent one) — no component styling to touch. */
+  --text: #263422;
+  --text-muted: #5c6b54;
+  --bg: #f7faf1;
   --surface: #ffffff;
-  --border: #e5e4e7;
-  --accent: #8b3bff;
-  --accent-contrast: #ffffff;
-  --danger: #c0392b;
+  --border: #c7ccb9; /* ash-grey */
+  --accent: #87a878; /* sage-green */
+  --accent-text: #55704a; /* darkened sage-green — accent used as text needs more contrast than accent-as-fill */
+  --accent-contrast: #1c2618; /* text placed on top of --accent fills */
+  --accent-muted: #cae2bc; /* tea-green, for subtle accent-tinted backgrounds */
+  --danger: #b3492f;
 
   font: 16px/1.5 system-ui, 'Segoe UI', Roboto, sans-serif;
   color-scheme: light dark;
@@ -16,13 +22,16 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #e5e4e7;
-    --text-muted: #9ca3af;
-    --bg: #16171d;
-    --surface: #1f2028;
-    --border: #2e303a;
-    --accent: #c084fc;
-    --accent-contrast: #16171d;
+    --text: #e7ecdd;
+    --text-muted: #a3ab97;
+    --bg: #171b12;
+    --surface: #1f251a;
+    --border: #333c2c;
+    --accent: #dbf9b8; /* tea-green-2 — the lightest swatch reads best against a dark background */
+    --accent-text: #dbf9b8; /* already high-contrast on dark, no darkening needed here */
+    --accent-contrast: #17210f;
+    --accent-muted: #2c3a24;
+    --danger: #e2836a;
   }
 }
 
@@ -60,7 +69,7 @@ textarea {
 .link-button {
   background: none;
   border: none;
-  color: var(--accent);
+  color: var(--accent-text);
   padding: 0;
   text-decoration: underline;
 }
@@ -194,7 +203,10 @@ textarea {
   font-size: 0.75em;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: var(--accent);
+  color: var(--accent-text);
+  background: var(--accent-muted);
+  padding: 2px 8px;
+  border-radius: 999px;
 }
 
 .scene-card-actions {
