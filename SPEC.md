@@ -19,7 +19,9 @@ Fields:
 - `id`
 - `title` (short label shown on the card)
 - `description` (free text)
-- `order` / `position` (its place along its timeline — absent/null for a Loose Scene, see 2.6)
+- `order` / `position` (its place within whichever container it's currently in — a timeline, or
+  the Loose Scenes pool, see 2.6 — always set; only `timeline` itself is absent/null for a Loose
+  Scene)
 - `tags` (freeform — location, arc, tone, etc.)
 - `characters` (structured links to Character records, see 2.7 — distinct from freeform `tags`)
 - `tone` (freeform or short enum, e.g. comedic/tense/quiet — surfaced in the detail view and usable

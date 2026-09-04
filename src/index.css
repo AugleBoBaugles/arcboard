@@ -1,18 +1,18 @@
 :root {
-  /* Semantic color tokens, sourced from the sage/tea-green palette. Every rule
-     below reads colors through these tokens rather than raw hex, so a future
-     "pick your own palette" settings feature only needs to override this
-     block (or inject an equivalent one) — no component styling to touch. */
-  --text: #263422;
-  --text-muted: #5c6b54;
-  --bg: #f7faf1;
-  --surface: #ffffff;
-  --border: #c7ccb9; /* ash-grey */
-  --accent: #87a878; /* sage-green */
-  --accent-text: #55704a; /* darkened sage-green — accent used as text needs more contrast than accent-as-fill */
-  --accent-contrast: #1c2618; /* text placed on top of --accent fills */
-  --accent-muted: #cae2bc; /* tea-green, for subtle accent-tinted backgrounds */
-  --danger: #b3492f;
+  /* Semantic color tokens, sourced from the user's own palette (rust / cream /
+     dusty-rose / tan / mauve-taupe). Every rule below reads colors through
+     these tokens rather than raw hex, so a future "pick your own palette"
+     settings feature only needs to override this block (or inject an
+     equivalent one) — no component styling to touch. */
+  --text: #9f5141; /* rust — 4.8:1 against --bg, passes AA for body text */
+  --text-muted: #7a5c48; /* darkened tan — original tan was too light to read reliably */
+  --bg: #faebd4; /* cream */
+  --surface: #fffdf9; /* near-white, just enough lighter than --bg to read as a card */
+  --border: #ba9b8a; /* mauve-taupe */
+  --accent: #c17b7b; /* dusty-rose */
+  --accent-text: #8c4a4a; /* darkened dusty-rose — accent used as text needs more contrast than accent-as-fill */
+  --accent-contrast: #2b1310; /* text placed on top of --accent fills — no swatch of yours was dark enough */
+  --danger: #c0392b; /* deliberately outside your palette's red/brown family so errors stay visually distinct */
 
   font: 16px/1.5 system-ui, 'Segoe UI', Roboto, sans-serif;
   color-scheme: light dark;
@@ -22,16 +22,15 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #e7ecdd;
-    --text-muted: #a3ab97;
-    --bg: #171b12;
-    --surface: #1f251a;
-    --border: #333c2c;
-    --accent: #dbf9b8; /* tea-green-2 — the lightest swatch reads best against a dark background */
-    --accent-text: #dbf9b8; /* already high-contrast on dark, no darkening needed here */
-    --accent-contrast: #17210f;
-    --accent-muted: #2c3a24;
-    --danger: #e2836a;
+    --text: #faebd4; /* cream reads great on dark */
+    --text-muted: #b8a396;
+    --bg: #1c1210;
+    --surface: #241815;
+    --border: #4a372f;
+    --accent: #c17b7b; /* same accent as light mode — it already has enough contrast against a dark bg */
+    --accent-text: #c17b7b;
+    --accent-contrast: #2b1310; /* unchanged: still measured against --accent, not the page background */
+    --danger: #e2705f; /* brightened for visibility on dark */
   }
 }
 
@@ -150,20 +149,99 @@ textarea {
   padding: 24px;
 }
 
-.timeline-name {
-  font-size: 1.4em;
-  margin: 0 0 16px;
+.board-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.board-timelines {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.timeline-row {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 16px;
+}
+
+.timeline-row-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.timeline-row-drag-handle {
+  cursor: grab;
+  color: var(--text-muted);
+  touch-action: none;
+}
+
+.timeline-row-name {
+  flex: 1;
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.add-timeline-button {
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  background: none;
+  color: var(--text-muted);
+  padding: 12px;
+  width: 100%;
+}
+
+/* loose scenes panel */
+.loose-panel {
+  flex: 0 0 270px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 16px;
+  max-height: calc(100svh - 48px);
+  overflow-y: auto;
+  /* Setting only overflow-y makes browsers force overflow-x to `auto` too
+     (a spec quirk: one axis can't stay `visible` while the other clips), so
+     this was silently scrollable sideways the whole time — exactly what
+     dnd-kit's drag auto-scroll was latching onto. Pin it shut explicitly. */
+  overflow-x: hidden;
+  position: sticky;
+  top: 24px;
 }
 
 .scene-list-wrapper {
   overflow-x: auto;
+  /* Setting only overflow-x forces overflow-y to compute as `auto` too (the
+     same quirk fixed on .loose-panel below) — pin it shut so a tall scene
+     card can't turn this into a second, unwanted vertical scroll container. */
+  overflow-y: hidden;
   padding-bottom: 12px;
+}
+
+/* The Loose Scenes panel scrolls vertically via .loose-panel itself — this
+   wrapper must not also claim horizontal scroll, or dnd-kit's drag auto-scroll
+   (which auto-scrolls the nearest scrollable ancestor as the pointer nears an
+   edge) fights the drag trying to scroll sideways with nothing to scroll to. */
+.scene-list-wrapper--vertical {
+  overflow-x: visible;
+  padding-bottom: 0;
 }
 
 .scene-list {
   display: flex;
   gap: 16px;
   align-items: flex-start;
+}
+
+.scene-list--vertical {
+  flex-direction: column;
 }
 
 .scene-card {
@@ -204,7 +282,7 @@ textarea {
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--accent-text);
-  background: var(--accent-muted);
+  background: var(--bg);
   padding: 2px 8px;
   border-radius: 999px;
 }

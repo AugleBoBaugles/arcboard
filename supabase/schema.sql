@@ -1,5 +1,7 @@
 -- Arcboard schema: timelines + scenes, scoped per user via Supabase Auth + RLS.
--- Run once in the Supabase project's SQL editor.
+-- Run once in the Supabase project's SQL editor for a FRESH install.
+-- An existing project should instead apply the files under supabase/migrations/
+-- in order — this file is not re-run against a project that already has it.
 
 create extension if not exists pgcrypto;
 
@@ -17,7 +19,10 @@ create index timelines_user_idx on public.timelines(user_id);
 -- ---------- scenes ----------
 create table public.scenes (
   id uuid primary key default gen_random_uuid(),
-  timeline_id uuid not null references public.timelines(id) on delete cascade,
+  -- Null when the scene is a Loose Scene (SPEC.md 2.6) — not yet on any timeline.
+  -- on delete set null (not cascade): deleting a timeline should turn its
+  -- scenes into Loose Scenes, not delete them.
+  timeline_id uuid references public.timelines(id) on delete set null,
   user_id uuid not null references auth.users(id) on delete cascade,
   title text not null default 'Untitled scene',
   description text not null default '',

@@ -6,7 +6,7 @@ import { SceneForm } from './SceneForm'
 export function SceneCard({ scene, onUpdate, onDelete }) {
   const [editing, setEditing] = useState(false)
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
-    useSortable({ id: scene.id })
+    useSortable({ id: scene.id, data: { type: 'scene' } })
 
   const style = {
     transform: CSS.Transform.toString(transform),
