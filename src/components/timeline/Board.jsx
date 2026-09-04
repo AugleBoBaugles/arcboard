@@ -84,7 +84,11 @@ export function Board() {
   const crossedContainerRef = useRef(false)
 
   const sensors = useSensors(
-    useSensor(PointerSensor),
+    // A small activation distance lets a scene card be draggable from
+    // anywhere on it while staying clickable to open its detail modal — the
+    // pointer has to actually move before dnd-kit claims the gesture as a
+    // drag, so a plain click (no movement) falls through as a normal click.
+    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
   )
 

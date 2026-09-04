@@ -48,7 +48,8 @@ button {
 }
 
 input,
-textarea {
+textarea,
+select {
   font: inherit;
   color: inherit;
   background: var(--surface);
@@ -255,6 +256,20 @@ textarea {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  cursor: grab;
+  /* Draggable from anywhere on the card now (see SceneCard.jsx), not just a
+     small handle — this has to move here too, or touch browsers try to
+     scroll the page instead of starting the drag. */
+  touch-action: none;
+}
+
+.scene-card:active {
+  cursor: grabbing;
+}
+
+.scene-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .scene-card h3 {
@@ -267,13 +282,6 @@ textarea {
   font-size: 0.85em;
   color: var(--text-muted);
   overflow-wrap: anywhere;
-}
-
-.scene-card-drag-handle {
-  align-self: flex-end;
-  cursor: grab;
-  color: var(--text-muted);
-  touch-action: none;
 }
 
 .scene-card-status {
@@ -331,4 +339,27 @@ textarea {
   color: var(--text-muted);
   padding: 12px;
   align-self: stretch;
+}
+
+/* scene detail modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgb(0 0 0 / 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 100;
+}
+
+.modal-dialog {
+  width: 100%;
+  max-width: 480px;
+  max-height: calc(100svh - 48px);
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 20px;
 }

@@ -155,9 +155,9 @@ avoids the extra privileged backend piece a hard delete would require.
 
 1. ✅ **Data model + single timeline**: create/edit/delete scenes, drag-reorder within one
    timeline. *(Done.)*
-2. **Multiple timelines + Loose Scenes**: add/remove timelines, shared horizontal axis, vertical
+2. ✅ **Multiple timelines + Loose Scenes**: add/remove timelines, shared horizontal axis, vertical
    stacking, plus the Loose Scenes panel (2.6) — both are "scenes need a home other than their
-   current timeline" problems, solved with the same drag-between-containers mechanics.
+   current timeline" problems, solved with the same drag-between-containers mechanics. *(Done.)*
 3. **Scene detail view**: expand a scene into the full editable detail panel (2.5), including the
    new `tone` field.
 4. **Characters**: character index + character page (bio form, gallery, scene links), structured

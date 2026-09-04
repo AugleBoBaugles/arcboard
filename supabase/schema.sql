@@ -31,6 +31,7 @@ create table public.scenes (
   status text not null default 'idea'
     check (status in ('idea', 'scripted', 'thumbnailed', 'drawn', 'published')),
   notes text not null default '',
+  tone text,
   weight double precision,
   color text,
   created_at timestamptz not null default now(),
